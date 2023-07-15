@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main { // Boj15685: 드래곤 커브
     private int[][] map = new int[101][101];
@@ -41,11 +44,8 @@ public class Main { // Boj15685: 드래곤 커브
                 for (int dir = 0; dir < 3; dir++) {
                     int crrX = j + dx[dir];
                     int crrY = i + dy[dir];
-                    if (crrX >= col || crrY >= row) {
-                        isSquare = false;
-                        break;
-                    }
-                    if (arr[crrY][crrX] != 1) {
+                    
+                    if (crrX >= col || crrY >= row || arr[crrY][crrX] != 1) {
                         isSquare = false;
                         break;
                     }
@@ -64,17 +64,14 @@ public class Main { // Boj15685: 드래곤 커브
         int[] dx = {1, 0, -1, 0};
         int[] dy = {0, -1, 0, 1};
 
-        for (int i = 0; i < gen + 1; i++) {
+        for (int i = 0; i < gen; i++) {
             copyList = new ArrayList<>(originList);
-
-            if (i == gen) break;
-
             Collections.reverse(copyList);
             for (int temp : copyList) {
                 originList.add((temp + 1) % 4);
             }
         }
-
+        
         map[y][x] = 1;
         for (int crrDir : originList) {
             x += dx[crrDir];
