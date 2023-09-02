@@ -58,21 +58,20 @@ public class Main { //Boj1504: 특정한 최단 경로
         mustNodes[0] = Integer.parseInt(info.nextToken());
         mustNodes[1] = Integer.parseInt(info.nextToken());
 
-//        long[] mustDist =  new long[2];
-//        mustDist[0] = calculateMinDistance(mustNodes[0], mustNodes[1], new long[nodeCnt + 1]);
-//        mustDist[1] = calculateMinDistance(mustNodes[1], mustNodes[0], new long[nodeCnt + 1]);
-//        // 두 경우 모두 경로가 없으면 최종 경로 또한 존재하지 않음
-//        if ( mustDist[0] == -1 && mustDist[1] == -1) {
-//            System.out.println(-1);
-//            System.exit(0);
-//        }
+        long[] mustDist =  new long[2];
+        mustDist[0] = calculateMinDistance(mustNodes[0], mustNodes[1], new long[nodeCnt + 1]);
+        mustDist[1] = calculateMinDistance(mustNodes[1], mustNodes[0], new long[nodeCnt + 1]);
+        // 두 경우 모두 경로가 없으면 최종 경로 또한 존재하지 않음
+        if ( mustDist[0] == INF && mustDist[1] == INF) {
+            System.out.println(-1);
+            System.exit(0);
+        }
 
         long answer = INF;
         for (int i = 0; i < 2; i++) {
             long front = calculateMinDistance(1, mustNodes[i], new long[nodeCnt + 1]);
-            long must = calculateMinDistance(mustNodes[i], mustNodes[(i + 1) % 2], new long[nodeCnt + 1]);
             long back = calculateMinDistance(mustNodes[(i + 1) % 2], nodeCnt, new long[nodeCnt + 1]);
-            answer = Math.min(answer, (front + must + back));
+            answer = Math.min(answer, (front + mustDist[i] + back));
         }
 
         if (answer >= INF) System.out.println(-1);
