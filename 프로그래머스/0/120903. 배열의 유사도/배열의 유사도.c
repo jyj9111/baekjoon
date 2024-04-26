@@ -12,5 +12,5 @@ int solution(const char* s1[], size_t s1_len, const char* s2[], size_t s2_len) {
             if(strcmp(s1[i], s2[j]) == 0) answer++;
         }
     }
-    return (answer == 0) ? 0 : answer;
+    return answer;
 }
